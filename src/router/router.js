@@ -1,0 +1,6 @@
+const routers = [
+  {
+    path: '/',
+    component: '',
+  },
+];
