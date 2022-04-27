@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h2>Posts page</h2>
+    <h1>{{ $store.state.limit }}</h1>
+    <!-- <h2>Posts page</h2>
     <my-input v-focus v-model="searchQuery" placeholder="Search..." />
     <div class="app__btns">
       <my-button @click="showDialog">Create user</my-button>
@@ -16,7 +17,7 @@
       v-if="!isPostsLoading"
     />
     <div v-else>Loading...</div>
-    <div v-intersection="loadMorePosts" class="observer"></div>
+    <div v-intersection="loadMorePosts" class="observer"></div> -->
     <!-- <div class="nav__wrapper">
       <div
         class="nav__page"
@@ -71,54 +72,9 @@ export default {
     // changePage(pageNumber) {
     //   this.page = pageNumber;
     // },
-    async fetchPosts() {
-      try {
-        this.isPostsLoading = true;
-        const response = await axios.get(
-          'https://jsonplaceholder.typicode.com/posts',
-          {
-            params: {
-              _page: this.page,
-              _limit: this.limit,
-            },
-          }
-        );
-        this.totalPage = Math.ceil(
-          response.headers['x-total-count'] / this.limit
-        );
-        this.posts = response.data;
-      } catch (e) {
-        alert('Error');
-      } finally {
-        this.isPostsLoading = false;
-      }
-    },
-
-    async loadMorePosts() {
-      try {
-        this.page += 1;
-        // this.isPostsLoading = true;
-        const response = await axios.get(
-          'https://jsonplaceholder.typicode.com/posts',
-          {
-            params: {
-              _page: this.page,
-              _limit: this.limit,
-            },
-          }
-        );
-        this.totalPage = Math.ceil(
-          response.headers['x-total-count'] / this.limit
-        );
-        this.posts = [...this.posts, ...response.data];
-      } catch (e) {
-        alert('Error');
-      }
-    },
   },
   mounted() {
-    this.fetchPosts();
-
+    // this.fetchPosts();
     // const options = {
     //   rootMargin: '0px',
     //   threshold: 1.0,
@@ -131,20 +87,7 @@ export default {
     // const observer = new IntersectionObserver(callback, options);
     // observer.observe(this.$refs.observer);
   },
-  computed: {
-    sortedPosts() {
-      return [...this.posts].sort((post1, post2) => {
-        return post1[this.selectedSort]?.localeCompare(
-          post2[this.selectedSort]
-        );
-      });
-    },
-    sortedAndSearchedPosts() {
-      return this.sortedPosts.filter((post) =>
-        post.title.toLowerCase().includes(this.searchQuery.toLowerCase())
-      );
-    },
-  },
+  computed: {},
   watch: {
     // page() {
     //   this.fetchPosts();
