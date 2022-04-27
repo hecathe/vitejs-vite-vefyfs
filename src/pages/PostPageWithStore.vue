@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1>{{ $store.state.post.limit }}</h1>
-    <!-- <h2>Posts page</h2>
+    <!-- <h1>{{ $store.state.post.limit }}</h1> -->
+    <h2>Posts page</h2>
     <my-input v-focus v-model="searchQuery" placeholder="Search..." />
     <div class="app__btns">
       <my-button @click="showDialog">Create user</my-button>
@@ -17,7 +17,7 @@
       v-if="!isPostsLoading"
     />
     <div v-else>Loading...</div>
-    <div v-intersection="loadMorePosts" class="observer"></div> -->
+    <div v-intersection="loadMorePosts" class="observer"></div>
     <!-- <div class="nav__wrapper">
       <div
         class="nav__page"
