@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>{{ $store.state.limit }}</h1>
+    <h1>{{ $store.state.post.limit }}</h1>
     <!-- <h2>Posts page</h2>
     <my-input v-focus v-model="searchQuery" placeholder="Search..." />
     <div class="app__btns">
