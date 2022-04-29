@@ -37,6 +37,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  column-gap: 20px;
   text-align: left;
   border: 1px solid grey;
   padding: 10px;
