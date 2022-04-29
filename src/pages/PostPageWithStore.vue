@@ -1,11 +1,19 @@
 <template>
   <div>
-    <!-- <h1>{{ $store.state.post.limit }}</h1> -->
     <h2>Posts page</h2>
-    <my-input v-focus v-model="searchQuery" placeholder="Search..." />
+    <my-input
+      v-focus
+      :model-value="searchQuery"
+      @update:model-value="setSearchQuery"
+      placeholder="Search..."
+    />
     <div class="app__btns">
       <my-button @click="showDialog">Create user</my-button>
-      <my-select v-model="selectedSort" :options="sortOptions" />
+      <my-select
+        :model-value="selectedSort"
+        @update:model-value="setSelectedSort"
+        :options="sortOptions"
+      />
     </div>
 
     <my-dialog v-model:show="dialogVisible">
@@ -36,29 +44,36 @@
 import PostList from '@/components/PostList.vue';
 import PostForm from '@/components/PostForm.vue';
 import axios from 'axios';
+import MyButton from '@/components/UI/MyButton.vue';
+import MyDialog from '@/components/UI/MyDialog.vue';
+import MySelect from '@/components/UI/MySelect.vue';
+import MyInput from '@/components/UI/MyInput.vue';
+import { mapState, mapGetters, mapActions, mapMutations } from 'vuex';
 
 export default {
   components: {
     PostList,
     PostForm,
+    MyButton,
+    MyDialog,
+    MySelect,
+    MyInput,
   },
   data() {
     return {
-      posts: [],
       dialogVisible: false,
-      isPostsLoading: false,
-      selectedSort: '',
-      sortOptions: [
-        { value: 'title', name: 'On name' },
-        { value: 'body', name: 'On description' },
-      ],
-      searchQuery: '',
-      page: 1,
-      limit: 10,
-      totalPage: 0,
     };
   },
   methods: {
+    ...mapActions({
+      loadMorePosts: 'post/loadMorePosts',
+      fetchPosts: 'post/fetchPosts',
+    }),
+    ...mapMutations({
+      setPage: 'post/setPage',
+      setSearchQuery: 'post/setSearchQuery',
+      setSelectedSort: 'post/setSelectedSort',
+    }),
     createPost(post) {
       this.posts.push(post);
       this.dialogVisible = false;
@@ -74,20 +89,24 @@ export default {
     // },
   },
   mounted() {
-    // this.fetchPosts();
-    // const options = {
-    //   rootMargin: '0px',
-    //   threshold: 1.0,
-    // };
-    // const callback = (entries, observer) => {
-    //   if (entries[0].isIntersecting && this.page < this.totalPage) {
-    //     this.loadMorePosts();
-    //   }
-    // };
-    // const observer = new IntersectionObserver(callback, options);
-    // observer.observe(this.$refs.observer);
+    this.fetchPosts();
   },
-  computed: {},
+  computed: {
+    ...mapState({
+      posts: (state) => state.post.posts,
+      isPostsLoading: (state) => state.post.isPostsLoading,
+      selectedSort: (state) => state.post.selectedSort,
+      sortOptions: (state) => state.post.sortOptions,
+      searchQuery: (state) => state.post.searchQuery,
+      page: (state) => state.post.page,
+      limit: (state) => state.post.limit,
+      totalPage: (state) => state.post.totalPage,
+    }),
+    ...mapGetters({
+      sortedPosts: 'post/sortedPosts',
+      sortedAndSearchedPosts: 'post/sortedAndSearchedPosts',
+    }),
+  },
   watch: {
     // page() {
     //   this.fetchPosts();
