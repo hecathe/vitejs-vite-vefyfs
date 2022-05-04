@@ -1,6 +1,6 @@
 import { ref, computed } from 'vue';
 
-export default function useSortedPosts(posts) {
+export function useSortedPosts(posts) {
   const selectedSort = ref('');
   const sortedPosts = computed(() => {
     return [posts.value].sort((post1, post2) => {

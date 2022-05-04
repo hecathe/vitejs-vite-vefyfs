@@ -30,7 +30,7 @@ export function usePosts(limit) {
 
   return {
     posts,
-    isPostsLoading,
     totalPage,
+    isPostsLoading,
   };
 }

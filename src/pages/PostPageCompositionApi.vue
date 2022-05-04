@@ -1,7 +1,5 @@
 <template>
   <div>
-    <h1>{{ likes }}</h1>
-    <my-button @click="addLike">add like</my-button>
     <h2>Posts page</h2>
     <my-input v-focus v-model="searchQuery" placeholder="Search..." />
     <div class="app__btns">
@@ -39,8 +37,8 @@ export default {
     };
   },
   setup(props) {
-    const { posts, isPostsLoading, totalPage } = usePosts(10);
-    const { sortedPosts, selectedSort } = useSortedPosts(posts);
+    const { posts, totalPage, isPostsLoading } = usePosts(10);
+    const { selectedSort, sortedPosts } = useSortedPosts(posts);
     const { searchQuery, sortedAndSearchedPosts } =
       useSortedAndSearchedPosts(sortedPosts);
 
@@ -61,9 +59,5 @@ export default {
 .app__btns {
   display: flex;
   justify-content: space-between;
-}
-
-.observer {
-  height: 10px;
 }
 </style>
