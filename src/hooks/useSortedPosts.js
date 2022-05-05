@@ -11,7 +11,7 @@ export function useSortedPosts(posts) {
   });
 
   return {
-    selectedSort,
     sortedPosts,
+    selectedSort,
   };
 }

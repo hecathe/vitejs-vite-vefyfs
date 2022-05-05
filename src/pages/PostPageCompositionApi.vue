@@ -38,7 +38,7 @@ export default {
   },
   setup(props) {
     const { posts, totalPage, isPostsLoading } = usePosts(10);
-    const { selectedSort, sortedPosts } = useSortedPosts(posts);
+    const { sortedPosts, selectedSort } = useSortedPosts(posts);
     const { searchQuery, sortedAndSearchedPosts } =
       useSortedAndSearchedPosts(sortedPosts);
 
